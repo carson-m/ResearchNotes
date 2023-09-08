@@ -63,8 +63,19 @@ $$
 
 2. 在使$(U_{2},U_{1}),(V_{2},V_{1}),(U_{2},V_{1}),(V_{2},U_{1})$相互不关联(cov=0)的情况下，使$U_{2},V_{2}$的关联性有次大的相关性
 
-3. 以此类推，使$Var(U_{i})=Var(V_{j})=1$，同时除$cov(U_{i},V_{i})$之外的协方差全为0，直到进行到第r部(r<=min(p,q))，两组数据的关联性被提取完毕为止，可得r组变量
+3. 以此类推，使$Var(U_{i})=Var(V_{j})=1$，同时除$cov(U_{i},V_{i})$之外的协方差全为0，直到进行到第r部(r<=min(p,q))，两组数据的关联性被提取完毕为止，可得r组变量(r对a和b)
 
 4. 由于$Var(U_{i})=Var(V_{i})=1$，故${\rho_{i}}^{*}=cov(U_{i},V_{i})$
 
 相当于在Var与cov的约束下求$\rho$的最大值，即条件极值问题
+
+## 实操
+
+$$
+cov(\begin{bmatrix}x\\y\end{bmatrix})=\begin{bmatrix}cov(x,x)&cov(x,y)\\cov(y,x)&cov(y,y)\end{bmatrix}=\begin{bmatrix}S_{xx}&S_{xy}\\S_{yx}&S_{yy}\end{bmatrix}
+$$
+
+若x,y已经标准化，则有
+$$
+E(X)=[0],E(Y)=[0]
+$$
