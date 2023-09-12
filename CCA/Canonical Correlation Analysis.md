@@ -10,9 +10,9 @@ Y1为户主年龄，Y2为家庭年收入，Y3为户主受教育程度
 现做线性变换，将X1,X2线性组合为2维的U，Y1,Y2,Y3组合为2维的V
 于是有
 $$
-Var(U_{i})=A_{i\_}^{T}cov(X,X)A_{i\_}\\
-Var(V_{j})=B_{j\_}^{T}cov(Y,Y)B_{j\_}\\
-cov(U_{i},V_{j})=A_{i\_}^{T}cov(X,Y)B_{j\_}\\
+Var(U_{i})=A_{\_i}^{T}cov(X,X)A_{\_i}\\
+Var(V_{j})=B_{\_j}^{T}cov(Y,Y)B_{\_j}\\
+cov(U_{i},V_{j})=A_{\_i}^{T}cov(X,Y)B_{\_j}\\
 \rho(U_{i},V_{j})=corr(U_{i},V_{j})=\frac{cov(U_{i},V_{j})}{\sqrt{Var(U_{i})}\sqrt{Var(V_{j})}}
 $$
 
@@ -33,18 +33,18 @@ $$
 $$
 U, V分别为X, Y的线性组合，注意维数变化
 $$
-U=\begin{bmatrix}
+U=X\begin{bmatrix}
 a_{11} & a_{12} & ....&a_{1p}\\
 a_{21}&a_{22}&....&a_{2p}\\
 .&.&.&.\\
 a_{p1}&a_{p2}&....&a_{pp}
-\end{bmatrix}X\\
-V=\begin{bmatrix}
+\end{bmatrix}\\
+V=Y\begin{bmatrix}
 b_{11} & b_{12} & ....&b_{1q}\\
 b_{21}&b_{22}&....&b_{2q}\\
 .&.&.&.\\
 b_{p1}&b_{p2}&....&b_{pq}
-\end{bmatrix}Y
+\end{bmatrix}
 $$
 定义
 $$
@@ -79,3 +79,29 @@ $$
 $$
 E(X)=[0],E(Y)=[0]
 $$
+现在要寻找A,B, s.t.
+$$
+arg\ max_{A_{\_i},B_{\_i}}\ \frac{cov(U_i,V_i)}{\sqrt{Var(U_i)}\sqrt{Var(V_i)}}
+$$
+即
+$$
+arg\ max_{A_{\_i},B_{\_i}}\ \frac{A_{\_i}^{T}S_{xy}B_{\_i}}{\sqrt{A_{\_i}^{T}S_{xx}A_{\_i}}\sqrt{B_{\_i}^{T}S_{yy}B_{\_i}}}
+$$
+**A**和**B**增大相同的倍数最优化的值不改变，所以我们需要应用**svm**的技巧，**固定分母，只优化分子**
+
+原问题变为：在$Var(U_{i})=Var(V_{i})=1$时，寻找$arg\ max_{A_{\_i},B_{\_i}}\ {A_{\_i}^{T}S_{xy}B_{\_i}}$
+
+构造Lagrange等式，得
+$$
+S_{xx}^{-1}S_{xy}B_{\_i}=\lambda A_{\_i}\\
+S_{yy}^{-1}S_{yx}A_{\_i}=\lambda B_{\_i}
+$$
+整理得
+$$
+S_{xx}^{-1}S_{xy}S_{yy}^{-1}S_{yx}A_{\_i}=\lambda^2 A_{\_i}
+$$
+求矩阵
+$$
+S_{xx}^{-1}S_{xy}S_{yy}^{-1}S_{yx}
+$$
+的特征值和特征向量即可进一步计算出$\lambda$与**A**，同理可得**B**。
