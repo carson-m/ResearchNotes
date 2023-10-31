@@ -1,5 +1,20 @@
 # Task-related Component Analysis(TRCA)
 
+## Relevant Techniques
+
+$$
+\vec{u}=X\ \vec{a}\\
+\vec{v}=Y\ \vec{b}\\\\
+\begin{align}
+Cov(\vec{u},\vec{v})&=E(\vec{u}^T\vec{v})-E(\vec{u})^TE(\vec{v})\\
+&=E(\vec{a}^TX^TY\vec{b})-(E(X)\vec{a})^TE(Y)\vec{b}\\
+&=\vec{a}^T[E(X^TY)-(EX)^TEY]\vec{b}\\
+&=\vec{a}^TCov(X,Y)\vec{b}
+\end{align}
+$$
+
+## Intro
+
 a data analysis technique
 
 neuroscience & ML
